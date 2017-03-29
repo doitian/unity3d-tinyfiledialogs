@@ -1,0 +1,29 @@
+.rbenv-*
+TAGS
+tags
+*.sublime-project
+*.sublime-workspace
+*.marked
+.Ulysses*
+.tmux.conf
+Session.vim
+.ctrlp_*
+.env
+.*.sw?
+.DS_Store
+py?env
+
+# Created by https://www.gitignore.io/api/cmake
+
+### CMake ###
+CMakeCache.txt
+CMakeFiles
+CMakeScripts
+Testing
+Makefile
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+
+# End of https://www.gitignore.io/api/cmake
