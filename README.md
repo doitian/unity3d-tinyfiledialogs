@@ -2,7 +2,7 @@
 
 Wrapper of [tinyfiledialogs](https://sourceforge.net/projects/tinyfiledialogs/) for Unity3D.
 
-Support Windows and macOS. Linux can be supported by comple tinyfiledialogs.c into so library.
+Support Windows, macOS and Linux.
 
 ## Usage
 
@@ -17,14 +17,19 @@ Use `tinyfd.TineFileDialogs` in the C# code, or add following components to Game
 
 ## Licence
 
-- Files in directory tinyfiledialogs are licensed according to the comment in `tinyfiledialogs/tinyfiledialogs.h`
+- Files in directory tinyfiledialogs and Assets/tinyfiledialogs/Plugins/ are licensed according to the comment in `tinyfiledialogs/tinyfiledialogs.h`
 - Other files are licensed using MIT, see LICENCE file in the repository.
+
+## Native Plugin Build Environment
+
+- Windows: Visual Studio 2012
+- Linux: gcc with glibc
 
 ## 中文
 
 Unity3D 文件选择对话框，封装了 [tinyfiledialogs](https://sourceforge.net/projects/tinyfiledialogs/)。
 
-支持 Windows 和 macOS 平台。Linux 的 .so 暂时没有提供。
+支持 Windows, macOS 和 Linux 平台。
 
 把 `Assets/tinyfiledialogs` 复制到项目的 Assets 目录中。
 
