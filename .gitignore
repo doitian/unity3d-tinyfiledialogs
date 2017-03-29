@@ -13,6 +13,10 @@ Session.vim
 .DS_Store
 py?env
 
+build
+build32
+build64
+
 # Created by https://www.gitignore.io/api/cmake
 
 ### CMake ###

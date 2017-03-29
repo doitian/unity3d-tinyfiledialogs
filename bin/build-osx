@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+set -e
+set -u
+[ -n "${DEBUG:-}" ] && set -x
+
+mkdir -p build
+cd build && cmake -DCMAKE_BUILD_TYPE=Release .. && make clean all && cd ..
+rm -rf Assets/tinyfiledialogs/Plugins/MacOS/tinyfiledialogs.bundle
+mv build/tinyfiledialogs.bundle Assets/tinyfiledialogs/Plugins/MacOS/
