@@ -15,6 +15,11 @@ Use `tinyfd.TineFileDialogs` in the C# code, or add following components to Game
 - `PasswordBox`
 - `FileDialog`
 
+## Licence
+
+- Files in directory tinyfiledialogs are licensed according to the comment in `tinyfiledialogs/tinyfiledialogs.h`
+- Other files are licensed using MIT, see LICENCE file in the repository.
+
 ## 中文
 
 Unity3D 文件选择对话框，封装了 [tinyfiledialogs](https://sourceforge.net/projects/tinyfiledialogs/)。
