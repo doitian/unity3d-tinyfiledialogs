@@ -1,0 +1,9 @@
+{
+  "tinyfiledialogs": {
+    "url": "https://git.code.sf.net/p/tinyfiledialogs/code",
+    "remote": "master/braid/tinyfiledialogs",
+    "branch": "master",
+    "squashed": true,
+    "revision": "310ef742aa77c4bf2f1f64a1ed26399845a216da"
+  }
+}
