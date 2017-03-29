@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -e
+set -u
+[ -n "${DEBUG:-}" ] && set -x
+
+mkdir -p build32
+cd build32 && cmake -DCMAKE_BUILD_TYPE=Release -DCFLAGS=-m64 .. && make clean all && cd ..
+cp -f build32/tinyfiledialogs.so Assets/tinyfiledialogs/Plugins/x86_64/
