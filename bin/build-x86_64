@@ -4,6 +4,6 @@ set -e
 set -u
 [ -n "${DEBUG:-}" ] && set -x
 
-mkdir -p build32
-cd build32 && cmake -DCMAKE_BUILD_TYPE=Release -DCFLAGS=-m64 .. && make clean all && cd ..
-cp -f build32/tinyfiledialogs.so Assets/tinyfiledialogs/Plugins/x86_64/
+mkdir -p build64
+cd build64 && cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_FLAGS=-m64 .. && make clean all && cd ..
+cp -f build64/libtinyfiledialogs.so Assets/tinyfiledialogs/Plugins/x86_64/
