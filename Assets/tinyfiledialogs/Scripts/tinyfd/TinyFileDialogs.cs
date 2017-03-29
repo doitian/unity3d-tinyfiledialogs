@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Runtime.InteropServices;
 
 namespace tinyfd
@@ -86,5 +86,90 @@ namespace tinyfd
 		) {
 			return Marshal.PtrToStringAuto(tinyfd_inputBox(title, message, null));
 		}
+
+		// char const * tinyfd_saveFileDialog (
+		// 	char const * const aTitle , /* "" */
+		// 	char const * const aDefaultPathAndFile , /* "" */
+		// 	int const aNumOfFilterPatterns , /* 0 */
+		// 	char const * const * const aFilterPatterns , /* NULL | {"*.jpg","*.png"} */
+		// 	char const * const aSingleFilterDescription ) ; /* NULL | "text files" */
+		// /* returns NULL on cancel */
+		[DllImport(DLL_NAME)]
+		private static extern IntPtr tinyfd_saveFileDialog(
+			string title, 
+			string defaultPathAndFile,
+			int numFilterPatterns,
+			string[] filterPatterns,
+			string filterDescription
+		);
+
+		/// <summary>
+		/// Open file dialog to save file.
+		/// </summary>
+		/// <returns>Path to selected location, or empty string if dialog is canceled.</returns>
+		public static string SaveFileDialog(
+			string title, 
+			string defaultPathAndFile,
+			string[] filterPatterns,
+			string filterDescription = null
+		) {
+			return Marshal.PtrToStringAuto(tinyfd_saveFileDialog(title, defaultPathAndFile, filterPatterns.Length, filterPatterns, filterDescription));
+		}
+
+		// char const * tinyfd_openFileDialog (
+		// 	char const * const aTitle , /* "" */
+		// 	char const * const aDefaultPathAndFile , /* "" */
+		// 	int const aNumOfFilterPatterns , /* 0 */
+		// 	char const * const * const aFilterPatterns , /* NULL {"*.jpg","*.png"} */
+		// 	char const * const aSingleFilterDescription , /* NULL | "image files" */
+		// 	int const aAllowMultipleSelects ) ; /* 0 or 1 */
+		// /* in case of multiple files, the separator is | */
+		// /* returns NULL on cancel */
+		[DllImport(DLL_NAME)]
+		private static extern IntPtr tinyfd_openFileDialog(
+			string title, 
+			string defaultPathAndFile,
+			int numFilterPatterns,
+			string[] filterPatterns,
+			string filterDescription,
+			int allowMutipleSelects
+		);
+
+		/// <summary>
+		/// Open file dialog to save file.
+		/// </summary>
+		/// <returns>Path to selected location, or empty string if dialog is canceled. In case of multiple files, the seperator is <c>|</c></returns>
+		public static string OpenFileDialog(
+			string title, 
+			string defaultPathAndFile,
+			string[] filterPatterns,
+			string filterDescription = null,
+			bool allowMultipleSelects = false
+		) {
+			return Marshal.PtrToStringAuto(tinyfd_openFileDialog(title, defaultPathAndFile, filterPatterns.Length, filterPatterns, filterDescription, allowMultipleSelects ? 1 : 0));
+		}
+
+
+		// char const * tinyfd_selectFolderDialog (
+		// 	char const * const aTitle , /* "" */
+		// 	char const * const aDefaultPath ) ; /* "" */
+		// /* returns NULL on cancel */
+		[DllImport(DLL_NAME)]
+		private static extern IntPtr tinyfd_selectFolderDialog(string title, string defaultPath);
+
+		public static string SelectFolderDialog(string title, string defaultPath) {
+			return Marshal.PtrToStringAuto(tinyfd_selectFolderDialog(title, defaultPath));
+		}
+
+		// char const * tinyfd_colorChooser(
+		// 	char const * const aTitle , /* "" */
+		// 	char const * const aDefaultHexRGB , /* NULL or "#FF0000" */
+		// 	unsigned char const aDefaultRGB[3] , /* { 0 , 255 , 255 } */
+		// 	unsigned char aoResultRGB[3] ) ; /* { 0 , 0 , 0 } */
+		// /* returns the hexcolor as a string "#FF0000" */
+		// /* aoResultRGB also contains the result */
+		// /* aDefaultRGB is used only if aDefaultHexRGB is NULL */
+		// /* aDefaultRGB and aoResultRGB can be the same array */
+		// /* returns NULL on cancel */
 	}
 }
