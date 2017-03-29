@@ -32,6 +32,14 @@ namespace tinyfd
 		private const string DLL_NAME = "tinyfiledialogs";
 		#endif
 
+		private static string PtrToNullableString(IntPtr ptr) {
+			if (ptr != IntPtr.Zero) {
+				return Marshal.PtrToStringAuto(ptr);
+			}
+			return null;
+		}
+
+
 		// int tinyfd_messageBox (
 		// char const * const aTitle , /* "" */
 		// char const * const aMessage , /* "" may contain \n \t */
@@ -70,13 +78,16 @@ namespace tinyfd
 		[DllImport(DLL_NAME)]
 		private static extern IntPtr tinyfd_inputBox(string title, string message, string defaultInput);
 
-		// Ask for user input in a dialog.
+		/// <summary>
+		/// Ask for user input in a dialog.
+		/// </summary>
+		/// <returns>User input text, or null if dialog is canceled.</returns>
 		public static string InputBox(
 			string title,
 			string message,
 			string defaultInput
 		) {
-			return Marshal.PtrToStringAuto(tinyfd_inputBox(title, message, defaultInput));
+			return PtrToNullableString(tinyfd_inputBox(title, message, defaultInput));
 		}
 
 		// Ask for user password input in a dialog.
@@ -84,7 +95,7 @@ namespace tinyfd
 			string title,
 			string message
 		) {
-			return Marshal.PtrToStringAuto(tinyfd_inputBox(title, message, null));
+			return PtrToNullableString(tinyfd_inputBox(title, message, null));
 		}
 
 		// char const * tinyfd_saveFileDialog (
@@ -106,14 +117,14 @@ namespace tinyfd
 		/// <summary>
 		/// Open file dialog to save file.
 		/// </summary>
-		/// <returns>Path to selected location, or empty string if dialog is canceled.</returns>
+		/// <returns>Path to selected location, or null if dialog is canceled.</returns>
 		public static string SaveFileDialog(
 			string title, 
 			string defaultPathAndFile,
 			string[] filterPatterns,
 			string filterDescription = null
 		) {
-			return Marshal.PtrToStringAuto(tinyfd_saveFileDialog(title, defaultPathAndFile, filterPatterns.Length, filterPatterns, filterDescription));
+			return PtrToNullableString(tinyfd_saveFileDialog(title, defaultPathAndFile, filterPatterns.Length, filterPatterns, filterDescription));
 		}
 
 		// char const * tinyfd_openFileDialog (
@@ -138,7 +149,7 @@ namespace tinyfd
 		/// <summary>
 		/// Open file dialog to save file.
 		/// </summary>
-		/// <returns>Path to selected location, or empty string if dialog is canceled. In case of multiple files, the seperator is <c>|</c></returns>
+		/// <returns>Path to selected location, or null if dialog is canceled. In case of multiple files, the seperator is <c>|</c></returns>
 		public static string OpenFileDialog(
 			string title, 
 			string defaultPathAndFile,
@@ -146,7 +157,7 @@ namespace tinyfd
 			string filterDescription = null,
 			bool allowMultipleSelects = false
 		) {
-			return Marshal.PtrToStringAuto(tinyfd_openFileDialog(title, defaultPathAndFile, filterPatterns.Length, filterPatterns, filterDescription, allowMultipleSelects ? 1 : 0));
+			return PtrToNullableString(tinyfd_openFileDialog(title, defaultPathAndFile, filterPatterns.Length, filterPatterns, filterDescription, allowMultipleSelects ? 1 : 0));
 		}
 
 
@@ -157,19 +168,12 @@ namespace tinyfd
 		[DllImport(DLL_NAME)]
 		private static extern IntPtr tinyfd_selectFolderDialog(string title, string defaultPath);
 
+		/// <summary>
+		/// Open file dialog to select folder.
+		/// </summary>
+		/// <returns>Path to selected folder, or null if dialog is canceled</returns>
 		public static string SelectFolderDialog(string title, string defaultPath) {
-			return Marshal.PtrToStringAuto(tinyfd_selectFolderDialog(title, defaultPath));
+			return PtrToNullableString(tinyfd_selectFolderDialog(title, defaultPath));
 		}
-
-		// char const * tinyfd_colorChooser(
-		// 	char const * const aTitle , /* "" */
-		// 	char const * const aDefaultHexRGB , /* NULL or "#FF0000" */
-		// 	unsigned char const aDefaultRGB[3] , /* { 0 , 255 , 255 } */
-		// 	unsigned char aoResultRGB[3] ) ; /* { 0 , 0 , 0 } */
-		// /* returns the hexcolor as a string "#FF0000" */
-		// /* aoResultRGB also contains the result */
-		// /* aDefaultRGB is used only if aDefaultHexRGB is NULL */
-		// /* aDefaultRGB and aoResultRGB can be the same array */
-		// /* returns NULL on cancel */
 	}
 }

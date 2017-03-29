@@ -8,7 +8,19 @@ public class EventLogger : MonoBehaviour
 	}
 
 	public void LogInputBoxEvent(string input) {
-		Debug.Log("Entered " + input + ".");
+		if (input != null) {
+			Debug.Log("Entered " + input + ".");
+		} else {
+			Debug.Log("Canceled the dialog");
+		}
+	}
+
+	public void LogInputBoxEvent(bool choosed, Color32 color) {
+		if (choosed) {
+			Debug.Log("Choosed color " + color);
+		} else {
+			Debug.Log("Canceled the dialog");
+		}
 	}
 }
 
